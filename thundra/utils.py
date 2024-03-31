@@ -39,12 +39,14 @@ class Workdir:
 
     @classmethod
     def find(cls, path: Path):
-        cwd = path.__str__().split("/")
+        # fix TypeError: Workdir Not Found
+        cwd = path.as_posix().split("/")
         for i in range(len(cwd) - 1):
             if i == 0:
                 dir_path = Path(os.getcwd())
             else:
                 dir_path = Path("/".join(cwd[:-i]))
+
             if (dir_path / "thundra-dev.toml").exists():
                 return Workdir(
                     db=dir_path,

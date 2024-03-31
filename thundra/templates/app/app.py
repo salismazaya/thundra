@@ -77,7 +77,7 @@ def on_message(client: NewClient, message: MessageEv):
                 yamlx = yaml.dump(ChainMessage(message.Message, message).to_json())
                 client.send_message(
                     chat,
-                    execute_agent(context, client, message).invoke(yamlx)["output"],
+                    execute_agent(context, client, message).invoke({'input':yamlx})["output"],
                 )
             elif client.my_tag in get_tag(message.Message):
                 save_to_storage(message)
@@ -85,7 +85,7 @@ def on_message(client: NewClient, message: MessageEv):
                     ChainMessage(message.Message, message).to_json()
                 ).replace(f"@{client.my_number}".strip(), "")
                 client.reply_message(
-                    execute_agent(context, client, message).invoke(yamlx)["output"],
+                    execute_agent(context, client, message).invoke({'input':yamlx})["output"],
                     quoted=message,
                 )
 

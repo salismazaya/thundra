@@ -17,4 +17,5 @@ else:
     os.environ["OPENAI_API_KEY"] = (
         config_toml["secrets"]["openai"]["openai"]["api_key"] or "invalid apikey"
     )
-    llm = ChatOpenAI(temperature=0)
+    model = config_toml["secrets"]["openai"]["openai"]["model"] 
+    llm = ChatOpenAI(temperature=0, model=model)

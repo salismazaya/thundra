@@ -7,11 +7,18 @@ from typing import Dict, List
 import tomllib
 import appdirs
 import json
+import os
 
 from ..evaluater import evaluate_module
 from ..utils import workdir
 
+
 APP_DATA = Path(appdirs.user_data_dir("thundra"))
+
+# fix FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\Salis Mazaya\\AppData\\Local\\thundra\\thundra'
+if os.name == 'nt':
+    APP_DATA = APP_DATA.parent
+
 if not APP_DATA.exists():
     APP_DATA.mkdir()
 

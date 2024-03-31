@@ -30,34 +30,34 @@ def build_system_message():
 
 @dataclass
 class UserMemory:
-    system_message: SystemMessage
+    # system_message: SystemMessage
     k: int
     memory: ConversationBufferWindowMemory
 
     @classmethod
     def create_ai_instance(cls, k: int):
-        system_message = SystemMessage(content=build_system_message())
+        # system_message = SystemMessage(content=build_system_message())
         return cls(
-            system_message=system_message,
+            # system_message=system_message,
             k=k,
             memory=ConversationBufferWindowMemory(
                 memory_key="chat_history",
                 k=k,
                 return_messages=True,
-                chat_memory=ChatMessageHistory(messages=[system_message]),
+                # chat_memory=ChatMessageHistory(messages=[system_message]),
             ),
         )
 
     def clear_history(self):
         self.memory.chat_memory.messages.clear()
-        self.memory.chat_memory.messages.append(self.system_message)
+        # self.memory.chat_memory.messages.append(self.system_message)
 
     def get_memory(self):
-        if self.memory.chat_memory.messages.__len__() > self.k * 2 - 1:
-            self.memory.chat_memory.messages = [
-                self.system_message,
-                *self.memory.chat_memory.messages[: -self.k * 2],
-            ]
+        # if self.memory.chat_memory.messages.__len__() > self.k * 2 - 1:
+        #     self.memory.chat_memory.messages = [
+        #         self.system_message,
+        #         *self.memory.chat_memory.messages[: -self.k * 2],
+        #     ]
         return self.memory
 
 
